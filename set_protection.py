@@ -56,6 +56,9 @@ def set_branch_lock(
 
     if 'required_status_checks' not in protection_rules:
         protection_rules['required_status_checks'] = None
+    elif 'contexts' in protection_rules['required_status_checks']:
+        # Remove obsolete setting returned by GET request
+        protection_rules['required_status_checks'].pop('contexts', None)
 
     # Alter `lock branch` setting in branch protection rules
     protection_rules['lock_branch'] = lock
