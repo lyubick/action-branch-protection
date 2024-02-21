@@ -1,0 +1,27 @@
+---
+name: Branch protector
+
+'on':
+  pull_request:
+    branches:
+      - 'main'
+
+jobs:
+  lock-unlock:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Lock main branch
+        uses: ./
+        with:
+          access-token: ${{ secrets.THIS_REPO_TOKEN }}
+          repository-name: ${{ github.repository }}
+          branch-main: main
+          lock: true
+      - name: Unlock main branch
+        uses: ./
+        with:
+          access-token: ${{ secrets.THIS_REPO_TOKEN }}
+          repository-name: ${{ github.repository }}
+          branch-main: main
+          lock: false

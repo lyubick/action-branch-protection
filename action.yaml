@@ -1,0 +1,32 @@
+---
+name: 'Modify Branch Protection'
+description: |
+  Modify branch protection rules. Support for locking or unlocking a given branch.
+branding:
+  icon: slash
+  color: red
+inputs:
+  access-token:
+    description: |
+      GitHub access token to enable GitHub API usage.
+    required: true
+  repository-name:
+    description: |
+      Repository name for branch protection modification. Given in the format of 'OWNER/REPO'.
+    required: true
+  branch-name:
+    description: |
+      The specific branch to modify branch protection rules.
+    required: true
+  lock:
+    description: |
+      Determines whether to lock or unlock the branch. 'true' to lock, 'false' to unlock.
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.access-token }}
+    - ${{ inputs.repository-name }}
+    - ${{ inputs.branch-name }}
+    - ${{ inputs.lock }}
